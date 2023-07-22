@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web Mapping Application</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Your map container -->
+    <div id="map" style="height: 300px;"></div>
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Replace with your Mapbox access token
+        const mapboxToken = 'pk.eyJ1IjoibWV2YW5ua2IiLCJhIjoiY2xrZTk4OHR0MHZiZzNscG15ZmJoamFxcSJ9.ki2SnU4Tdw9I60eC0t_TOg';
+        
+        // Replace with your desired latitude and longitude coordinates
+        const latitude = 6.836474;
+        const longitude = 79.988117;
+        const homeName = 'Mevan_Home'; // Replace with the name of your home
+
+        // Set up the map with the specified location and zoom level
+        const map = L.map('map').setView([latitude, longitude], 13);
+
+        // Add a tile layer to the map using Mapbox Streets
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: mapboxToken
+        }).addTo(map);
+
+        // Create a custom icon for the marker with a label
+        const homeIcon = L.divIcon({
+            className: 'home-icon',
+            html: `<div>${homeName}</div>`
+        });
+
+        // Add the marker with the custom icon to the map
+        L.marker([latitude, longitude], { icon: homeIcon }).addTo(map);
+    </script>
+</body>
+</html>
